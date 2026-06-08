@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body">
+    <div class="admin-container glass">
+        <header>
+            <h1>Admin Dashboard</h1>
+            <a href="index.html" class="btn btn-secondary">Go to Shop</a>
+        </header>
+
+        <section class="stats-section">
+            <div class="stat-card">
+                <h3>Total Commission</h3>
+                <p id="totalCommission">0 đ</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total BNPL Interest</h3>
+                <p id="totalBnplInterest">0 đ</p>
+            </div>
+            <div class="stat-card alert">
+                <h3>Fraud Orders</h3>
+                <p id="totalFraudOrders">0</p>
+            </div>
+        </section>
+
+        <section class="fraud-section">
+            <h2>Fraud Orders Review</h2>
+            <div class="table-responsive">
+                <table id="fraudTable">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Buyer ID</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fraudList">
+                        <!-- Fraud orders will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAdminData();
+        });
+    </script>
+</body>
+</html>

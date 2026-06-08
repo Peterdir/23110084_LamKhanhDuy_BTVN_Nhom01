@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="mobile-container">
+        <header>
+            <h1>Shoppertainment</h1>
+            <div class="user-selector">
+                <label>User: </label>
+                <select id="userSelect">
+                    <option value="1">Alice (Subscribed, Old)</option>
+                    <option value="2">Bob (New, Fraud)</option>
+                </select>
+            </div>
+        </header>
+
+        <main>
+            <div id="productList" class="product-list">
+                <!-- Products will be loaded here -->
+            </div>
+            
+            <div id="similarProductsSection" class="hidden">
+                <h3>Similar Products</h3>
+                <div id="similarProductList" class="product-list horizontal">
+                    <!-- Similar products will be loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal hidden">
+        <div class="modal-content glass">
+            <h2>Checkout</h2>
+            <div id="checkoutDetails"></div>
+            
+            <div class="payment-methods">
+                <label><input type="radio" name="payment" value="cod" checked> COD</label>
+                <label><input type="radio" name="payment" value="card"> Credit Card</label>
+                <label><input type="radio" name="payment" value="bnpl"> BNPL (+3% Fee)</label>
+            </div>
+            
+            <div id="bnplWarning" class="warning hidden">
+                Note: 3% fee applied for BNPL. Limit: 10,000,000đ.
+            </div>
+
+            <div class="modal-actions">
+                <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                <button id="confirmBuyBtn" class="btn btn-primary">Confirm Purchase</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+        });
+    </script>
+</body>
+</html>
