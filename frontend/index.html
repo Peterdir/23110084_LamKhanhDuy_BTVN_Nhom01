@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shoppertainment - Ứng dụng TMĐT thu nhỏ với tính năng mua sắm nhanh">
+    <title>Shoppertainment — Mua sắm nhanh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/buyer.css">
+</head>
+<body class="buyer-page">
+
+    <!-- ======== Mobile Shell ======== -->
+    <div class="mobile-shell">
+
+        <!-- Header -->
+        <header class="shop-header">
+            <div class="header-top">
+                <div class="app-logo">
+                    <div class="app-logo-icon">🛒</div>
+                    <span class="app-logo-text">Shoppertainment</span>
+                </div>
+                <nav class="header-nav">
+                    <a href="admin.html" class="btn-ghost" id="adminLink">📊 Admin</a>
+                </nav>
+            </div>
+
+            <!-- User Selector -->
+            <div class="user-selector">
+                <div class="user-selector-icon">👤</div>
+                <select id="userSelect">
+                    <!-- Users will be loaded from API -->
+                    <option value="">Loading...</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="shop-content">
+            <!-- Product List -->
+            <div class="section-title">
+                <span class="section-title-icon">🔥</span>
+                Sản phẩm hot
+            </div>
+            <div id="productGrid" class="product-grid">
+                <!-- Products loaded by JS -->
+                <div class="spinner"></div>
+            </div>
+
+            <!-- Similar Products -->
+            <section id="similarSection" class="similar-section hidden">
+                <div class="section-title">
+                    <span class="section-title-icon">💡</span>
+                    Sản phẩm tương tự
+                </div>
+                <div id="similarScroll" class="similar-scroll">
+                    <!-- Similar products loaded by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer Navigation -->
+        <footer class="shop-footer">
+            <span class="footer-link active">
+                <span class="footer-link-icon">🏠</span>
+                Trang chủ
+            </span>
+            <span class="footer-link" onclick="document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+                <span class="footer-link-icon">🔍</span>
+                Tìm kiếm
+            </span>
+            <span class="footer-link" onclick="showToast('Tính năng đang phát triển', 'warning')">
+                <span class="footer-link-icon">🛍️</span>
+                Đơn hàng
+            </span>
+            <a href="admin.html" class="footer-link">
+                <span class="footer-link-icon">👤</span>
+                Tài khoản
+            </a>
+        </footer>
+    </div>
+
+    <!-- ======== Checkout Modal ======== -->
+    <div id="checkoutModal" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🛒 Thanh toán</h2>
+            </div>
+
+            <div class="modal-body">
+                <!-- Order Summary -->
+                <div id="checkoutSummary" class="checkout-summary">
+                    <!-- Filled by JS -->
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="form-group">
+                    <label class="form-label">Phương thức thanh toán</label>
+                    <div class="radio-group">
+                        <label class="radio-card active" data-value="cod">
+                            <input type="radio" name="payment" value="cod" checked>
+                            <div class="radio-indicator"></div>
+                            <div class="radio-label">
+                                <div class="radio-label-title">💵 COD</div>
+                                <div class="radio-label-desc">Thanh toán khi nhận hàng</div>
+                            </div>
+                        </label>
+                        <label class="radio-card" data-value="card">
+                            <input type="radio" name="payment" value="card">
+                            <div class="radio-indicator"></div>
+                            <div class="radio-label">
+                                <div class="radio-label-title">💳 Thẻ tín dụng</div>
+                                <div class="radio-label-desc">Visa, Mastercard, JCB</div>
+                            </div>
+                        </label>
+                        <label class="radio-card" data-value="bnpl">
+                            <input type="radio" name="payment" value="bnpl">
+                            <div class="radio-indicator"></div>
+                            <div class="radio-label">
+                                <div class="radio-label-title">🏦 BNPL — Mua trước trả sau</div>
+                                <div class="radio-label-desc">Phụ phí 3% • Hạn mức 10,000,000đ</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- BNPL Warning -->
+                <div id="bnplAlert" class="bnpl-alert hidden">
+                    <span class="bnpl-alert-icon">⚠️</span>
+                    <div>
+                        <strong>Lưu ý:</strong> Phí dịch vụ BNPL 3% sẽ được cộng vào tổng đơn hàng.
+                        Hạn mức ví BNPL: <strong>10,000,000đ</strong>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancelBtn" class="btn btn-secondary">Hủy</button>
+                <button id="confirmBuyBtn" class="btn btn-primary btn-lg">✅ Xác nhận mua</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/buyer.js"></script>
+</body>
+</html>

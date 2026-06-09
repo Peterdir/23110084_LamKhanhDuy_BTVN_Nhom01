@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - Quản lý doanh thu, hoa hồng và đơn hàng gian lận">
+    <title>Admin Dashboard — E-commerce Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+
+    <div class="dashboard">
+        <!-- Dashboard Header -->
+        <header class="dash-header">
+            <div class="dash-title">
+                <div class="dash-title-icon">📊</div>
+                <div>
+                    <h1>Admin Dashboard</h1>
+                    <p class="dash-title-sub">Platform Revenue & Fraud Management</p>
+                </div>
+            </div>
+            <nav class="dash-nav">
+                <a href="index.html" class="btn btn-ghost" id="shopLink">🛒 Go to Shop</a>
+            </nav>
+        </header>
+
+        <!-- Stats Cards -->
+        <section class="stats-grid">
+            <!-- Commission -->
+            <div class="stat-card stat-commission">
+                <div class="stat-header">
+                    <span class="stat-label">Total Commission</span>
+                    <div class="stat-icon">💰</div>
+                </div>
+                <div class="stat-value" id="totalCommission">0 đ</div>
+                <p class="stat-value-sub">Revenue from marketplace fees</p>
+            </div>
+
+            <!-- BNPL Interest -->
+            <div class="stat-card stat-bnpl">
+                <div class="stat-header">
+                    <span class="stat-label">BNPL Interest</span>
+                    <div class="stat-icon">🏦</div>
+                </div>
+                <div class="stat-value" id="totalBnplInterest">0 đ</div>
+                <p class="stat-value-sub">Revenue from fintech services</p>
+            </div>
+
+            <!-- Fraud Orders -->
+            <div class="stat-card stat-fraud">
+                <div class="stat-header">
+                    <span class="stat-label">Fraud Orders</span>
+                    <div class="stat-icon">🚨</div>
+                </div>
+                <div class="stat-value" id="totalFraudOrders">0</div>
+                <p class="stat-value-sub">Orders flagged for review</p>
+            </div>
+        </section>
+
+        <!-- Fraud Orders Table -->
+        <section class="fraud-section">
+            <div class="fraud-header">
+                <h2>🔍 Fraud Orders Review <span class="fraud-count" id="fraudCountBadge">0</span></h2>
+            </div>
+
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Buyer</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fraudTableBody">
+                        <!-- Fraud orders loaded by JS -->
+                        <tr>
+                            <td colspan="5" style="text-align:center; padding:40px; color: var(--neutral-500);">
+                                <div class="spinner" style="margin: 0 auto 12px;"></div>
+                                Loading data...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

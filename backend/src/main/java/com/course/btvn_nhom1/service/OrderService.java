@@ -1,5 +1,6 @@
 package com.course.btvn_nhom1.service;
 
+import com.course.btvn_nhom1.dto.OrderResponse;
 import com.course.btvn_nhom1.model.Order;
 import com.course.btvn_nhom1.model.Product;
 import com.course.btvn_nhom1.model.Seller;
@@ -25,7 +26,7 @@ public class OrderService {
     @Autowired
     private ProductRepository productRepository;
 
-    public Order createOrder(Long buyerId, Long productId, String paymentMethod) {
+    public OrderResponse createOrder(Long buyerId, Long productId, String paymentMethod) {
         User buyer = userRepository.findById(buyerId).orElseThrow(() -> new RuntimeException("Buyer not found"));
         Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
         Seller seller = sellerRepository.findById(product.getSellerId()).orElseThrow(() -> new RuntimeException("Seller not found"));
@@ -43,10 +44,13 @@ public class OrderService {
         order.setCommissionFee(product.getPrice() * commissionRate);
 
         // 2. Cross-border Tax
+        int estimatedDeliveryDays;
         if ("INTERNATIONAL".equalsIgnoreCase(product.getOrigin())) {
             order.setTaxFee(product.getPrice() * 0.10);
+            estimatedDeliveryDays = 10;
         } else {
             order.setTaxFee(0);
+            estimatedDeliveryDays = 2;
         }
 
         // 3. LaaS - Shipping Fee
@@ -69,7 +73,7 @@ public class OrderService {
 
         // BNPL Limit check
         if ("bnpl".equalsIgnoreCase(paymentMethod) && totalPrice > buyer.getBnplLimit()) {
-            throw new RuntimeException("BNPL Limit Exceeded");
+            throw new RuntimeException("BNPL Limit Exceeded! Your limit is " + (long) buyer.getBnplLimit() + "đ but the total is " + (long) totalPrice + "đ");
         }
 
         // 5. Rule-based Fraud Check (Account created < 1 day)
@@ -80,6 +84,8 @@ public class OrderService {
             order.setFraud(false);
         }
 
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+
+        return OrderResponse.from(savedOrder, buyer.getName(), seller.getName(), product.getName(), estimatedDeliveryDays);
     }
 }
